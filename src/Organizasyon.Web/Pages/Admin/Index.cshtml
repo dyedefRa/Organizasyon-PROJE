@@ -1,0 +1,20 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Organizasyon.Localization
+@using Volo.Abp.Users
+@model Organizasyon.Web.Pages.Admin.IndexModel
+@inject IHtmlLocalizer<OrganizasyonResource> L
+@inject ICurrentUser CurrentUser
+<div class="jumbotron text-center">
+    <h1>Uygulamaya Hoşgeldiniz</h1>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <p>Bugün @DateTime.Today.ToShortDateString() İyi çalışmalar dilerim. </p>
+            <hr class="my-4" />
+        </div>
+    </div>
+    <h2>ADMIN INDEX</h2>
+    @if (!CurrentUser.IsAuthenticated)
+    {
+<a abp-button="Primary" href="~/Admin/Account/Login" class="px-4"><i class="fa fa-sign-in"></i> @L["Login"]</a>}
+</div>
