@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Organizasyon.Users;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -12,6 +14,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Volo.Abp.Users.EntityFrameworkCore;
 
 namespace Organizasyon.EntityFrameworkCore
 {
@@ -81,6 +84,27 @@ namespace Organizasyon.EntityFrameworkCore
             //    b.ConfigureByConvention(); //auto configure for the base class props
             //    //...
             //});
+
+            //TODOO 3
+            builder.Entity<AppUser>(b =>
+            {
+                b.ToTable(AbpIdentityDbProperties.DbTablePrefix + "Users");
+                b.ConfigureByConvention();
+                b.ConfigureAbpUser();
+                //b.Property(a => a.SteamId).HasColumnName("SteamId").HasMaxLength(128);
+                //b.Property(a => a.DiscordId).HasColumnName("DiscordId").HasMaxLength(128);
+                //b.Property(a => a.NormalizedEmail).HasColumnName("NormalizedEmail").HasMaxLength(256);
+                //b.Property(a => a.NormalizedUserName).HasColumnName("NormalizedUserName").HasMaxLength(256);
+                //b.Property(a => a.BirthDate).HasColumnName("BirthDate").HasColumnType("datetime");
+                //b.Property(a => a.ImageId).HasColumnName("ImageId").HasColumnType("uniqueidentifier");
+
+                //b.HasOne(d => d.Image)
+                //    .WithMany(p => p.AppUsers)
+                //    .HasForeignKey(d => d.ImageId)
+                //    .HasConstraintName("FK_AbpUsers_LFGFiles");
+                //b.HasOne<IdentityUser>().WithOne().HasForeignKey<AppUser>(x => x.Id);
+            });
+
         }
     }
 }

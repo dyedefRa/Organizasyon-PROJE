@@ -45,7 +45,10 @@ namespace Organizasyon.EntityFrameworkCore
             {
                 /* The main point to change your DBMS.
                  * See also OrganizasyonMigrationsDbContextFactory for EF Core tooling. */
-                options.UseSqlServer();
+                options.UseSqlServer(builder =>
+                {
+                    builder.CommandTimeout(60 * 15);
+                });
             });
         }
     }

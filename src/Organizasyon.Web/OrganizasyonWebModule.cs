@@ -42,6 +42,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.CookiePolicy;
+using Organizasyon.Models.Settings;
+using Hangfire;
+using Organizasyon.HangfireServices.Abstract;
+using Organizasyon.HangfireServices.Concrete;
+using Organizasyon.Web.Helpers;
 
 namespace Organizasyon.Web
 {
@@ -93,7 +98,7 @@ namespace Organizasyon.Web
                 options.ExpireTimeSpan = TimeSpan.FromDays(365 * 1000);
             });
 
-            //ConfigureAppSetting(context, configuration);
+            ConfigureAppSetting(context, configuration);
             ConfigureUrls(configuration);
             ConfigureBundles();
             ConfigureAuthentication(context, configuration);
@@ -101,20 +106,9 @@ namespace Organizasyon.Web
             ConfigureVirtualFileSystem(hostingEnvironment);
             ConfigureLocalizationServices();
             ConfigureAutoApiControllers();
+            ConfigureHangfire(context, configuration);
             ConfigureRedirectStrategy(context, configuration);
             context.Services.AddLogging();
-        }
-
-        private void ConfigureAppSetting(ServiceConfigurationContext context, IConfiguration configuration)
-        {
-            //context.Services.Configure<ConstraintSettings>(configuration.GetSection("ConstraintSettings"));
-            //context.Services.Configure<DefaultSettings>(configuration.GetSection("DefaultSettings"));
-            //context.Services.Configure<FtpSettings>(configuration.GetSection("FtpSettings"));
-            //context.Services.Configure<SftpSettings>(configuration.GetSection("SftpSettings"));
-            //context.Services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
-            //context.Services.Configure<SftpMatchSettings>(configuration.GetSection("SftpMatchSettings"));
-            //context.Services.Configure<ItsServiceSettings>(configuration.GetSection("ItsServiceSettings"));
-            //configuration.GetSection("ConstraintSettings").Bind(XmlToDtoHelper.ConstraintSettings);
         }
 
         private void ConfigureRedirectStrategy(ServiceConfigurationContext context, IConfiguration configuration)
@@ -134,6 +128,18 @@ namespace Organizasyon.Web
 
                         return Task.CompletedTask;
                     });
+        }
+
+        private void ConfigureAppSetting(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            //context.Services.Configure<ConstraintSettings>(configuration.GetSection("ConstraintSettings"));
+            context.Services.Configure<DefaultSettings>(configuration.GetSection("DefaultSettings"));
+            //context.Services.Configure<FtpSettings>(configuration.GetSection("FtpSettings"));
+            //context.Services.Configure<SftpSettings>(configuration.GetSection("SftpSettings"));
+            context.Services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
+            //context.Services.Configure<SftpMatchSettings>(configuration.GetSection("SftpMatchSettings"));
+            //context.Services.Configure<ItsServiceSettings>(configuration.GetSection("ItsServiceSettings"));
+            //configuration.GetSection("ConstraintSettings").Bind(XmlToDtoHelper.ConstraintSettings);
         }
 
         private void ConfigureUrls(IConfiguration configuration)
@@ -238,6 +244,24 @@ namespace Organizasyon.Web
             });
         }
 
+        private void ConfigureHangfire(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            context.Services.AddHangfire(config =>
+            {
+                config.UseSqlServerStorage(configuration.GetConnectionString("Default"));
+            });
+
+            var services = context.Services;
+            services.AddScoped<IRecurringJobService, RecurringJobService>();
+        }
+
+        private void StartHangFireService(IServiceProvider serviceProvider)
+        {
+            var recurringJobService = serviceProvider.GetService<IRecurringJobService>();
+            recurringJobService.SendProductionMailsJob();
+
+        }
+
         private void ConfigureAutoApiControllers()
         {
             Configure<AbpAspNetCoreMvcOptions>(options =>
@@ -281,12 +305,33 @@ namespace Organizasyon.Web
             app.UseAuthentication();
             app.UseJwtTokenMiddleware();
 
+            //if (MultiTenancyConsts.IsEnabled)
+            //{
+            //    app.UseMultiTenancy();
+            //}
+
             app.UseUnitOfWork();
             app.UseIdentityServer();
             app.UseAuthorization();
             app.UseAuditing();
+            //app.UseSwagger();
+            //app.UseAbpSwaggerUI(options =>
+            //{
+            //    options.SwaggerEndpoint("/swagger/v1/swagger.json", "NumuneTakip API");
+            //});
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions()
+            {
+                Authorization = new[] { new HangfireAuthorizationFilter() }
+            });
+            app.UseHangfireServer(new BackgroundJobServerOptions
+            {
+                SchedulePollingInterval = TimeSpan.FromSeconds(30), // Default 15sn.
+                WorkerCount = 1,
+
+            });
+            //StartHangFireService(context.ServiceProvider);
         }
     }
 }

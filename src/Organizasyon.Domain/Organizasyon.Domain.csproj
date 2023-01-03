@@ -24,4 +24,11 @@
     <PackageReference Include="Volo.Abp.SettingManagement.Domain" Version="4.4.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Logs\" />
+    <Folder Include="Entities\Labels\" />
+    <Folder Include="Entities\Package\" />
+    <Folder Include="Entities\Organizations\" />
+  </ItemGroup>
+
 </Project>
