@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Organizasyon.Entities.Towns;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Volo.Abp.Domain.Entities;
 
@@ -12,5 +14,6 @@ namespace Organizasyon.Entities.Cities
         public int CityNo { get; set; }
         [MaxLength(255)]
         public string AreaNumber { get; set; }
+        public virtual ICollection<Town> Towns { get; set; }
     }
 }

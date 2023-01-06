@@ -41,49 +41,48 @@ namespace Organizasyon.EntityFrameworkCore
                  * https://docs.abp.io/en/abp/latest/Customizing-Application-Modules-Extending-Entities
                  */
 
-
                 ObjectExtensionManager.Instance
-                   .MapEfCoreProperty<IdentityUser, string>(
-                       nameof(AppUser.CompanyName),
+                   .MapEfCoreProperty<IdentityUser, int>(
+                       nameof(AppUser.UserType),
                        (entityBuilder, propertyBuilder) =>
                        {
-                           propertyBuilder.HasMaxLength(1000);
-                           propertyBuilder.HasColumnName("CompanyName");
+                           propertyBuilder.HasColumnName("UserType");
                        }
                    );
-                ObjectExtensionManager.Instance
-                         .MapEfCoreProperty<IdentityUser, int?>(
-                             nameof(AppUser.CompanyImageId),
-                             (entityBuilder, propertyBuilder) =>
-                             {
-                                 propertyBuilder.HasColumnName("CompanyImageId");
-                             }
-                         );
-                ObjectExtensionManager.Instance
-                      .MapEfCoreProperty<IdentityUser, int?>(
-                          nameof(AppUser.CompanyCityId),
-                          (entityBuilder, propertyBuilder) =>
-                          {
-                              propertyBuilder.HasColumnName("CompanyCityId");
-                          }
-                      );
-                ObjectExtensionManager.Instance
-                     .MapEfCoreProperty<IdentityUser, int?>(
-                         nameof(AppUser.CompanyDisrictId),
-                         (entityBuilder, propertyBuilder) =>
-                         {
-                             propertyBuilder.HasColumnName("CompanyDisrictId");
-                         }
-                     );
-                ObjectExtensionManager.Instance
-                         .MapEfCoreProperty<IdentityUser, System.DateTime>(
-                             nameof(AppUser.ValidDate),
-                             (entityBuilder, propertyBuilder) =>
-                             {
-                                 propertyBuilder.HasColumnType("datetime");
-                                 propertyBuilder.HasColumnName("ValidDate");
-                             }
-                         );
+
+                //ObjectExtensionManager.Instance
+                //   .MapEfCoreProperty<IdentityUser, string>(
+                //       nameof(AppUser.CompanyName),
+                //       (entityBuilder, propertyBuilder) =>
+                //       {
+                //           propertyBuilder.HasMaxLength(1000);
+                //           propertyBuilder.HasColumnName("CompanyName");
+                //       }
+                //   );
+                //ObjectExtensionManager.Instance
+                //      .MapEfCoreProperty<IdentityUser, int?>(
+                //          nameof(AppUser.CityId),
+                //          (entityBuilder, propertyBuilder) =>
+                //          {
+                //              propertyBuilder.HasColumnName("CityId");
+                //          }
+                //      );
+                //ObjectExtensionManager.Instance
+                //     .MapEfCoreProperty<IdentityUser, int?>(
+                //         nameof(AppUser.DisrictId),
+                //         (entityBuilder, propertyBuilder) =>
+                //         {
+                //             propertyBuilder.HasColumnName("DisrictId");
+                //         }
+                //     );
+                //ObjectExtensionManager.Instance
+                //         .MapEfCoreProperty<IdentityUser, System.DateTime?>(
+                //             nameof(AppUser.CompanyValidDate),
+                //             (entityBuilder, propertyBuilder) =>
+                //             {
+                //                 propertyBuilder.HasColumnName("CompanyValidDate");
+                //             }
+                //         );
                 //TODOO 2
                 //ObjectExtensionManager.Instance
                 //        .MapEfCoreProperty<IdentityUser, Guid?>(

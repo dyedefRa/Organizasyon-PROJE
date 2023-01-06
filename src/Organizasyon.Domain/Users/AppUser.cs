@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Organizasyon.Entities.Companies;
+using Organizasyon.Enums;
+using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Users;
 
@@ -65,15 +63,11 @@ namespace Organizasyon.Users
         //public virtual File Image { get; set; }
         //public virtual ICollection<Team> Teams { get; set; }
 
-        public string CompanyName { get; set; }
-        public int? CompanyImageId { get; set; }
-        public int? CompanyCityId { get; set; }
-        public int? CompanyDisrictId { get; set; }
-        public DateTime ValidDate { get; set; }
+        public UserType UserType { get; set; }
+        //Bire bir  Appuser id companyde tutuluyor.
+        public virtual Company Company { get; set; }
 
-        //TODOO 1
-        //public virtual File Image { get; set; }
-        //public virtual ICollection<Team> Teams { get; set; }
-        //Company File
+
+        public Status Status { get; set; }
     }
 }
