@@ -1,4 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Organizasyon.Entities.Cities;
+using Organizasyon.Entities.Companies;
+using Organizasyon.Entities.CompanyOrganizationConcepts;
+using Organizasyon.Entities.CompanyPackages;
+using Organizasyon.Entities.Concepts;
+using Organizasyon.Entities.Files;
+using Organizasyon.Entities.FrequentlyAskedQuestions;
+using Organizasyon.Entities.Labels;
+using Organizasyon.Entities.Logs;
+using Organizasyon.Entities.MailTemplates;
+using Organizasyon.Entities.Organizations;
+using Organizasyon.Entities.Packages;
+using Organizasyon.Entities.SentMails;
+using Organizasyon.Entities.Towns;
 using Organizasyon.Users;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -18,13 +32,9 @@ using Volo.Abp.Users.EntityFrameworkCore;
 
 namespace Organizasyon.EntityFrameworkCore
 {
-    [ReplaceDbContext(typeof(IIdentityDbContext))]
-    [ReplaceDbContext(typeof(ITenantManagementDbContext))]
     [ConnectionStringName("Default")]
     public class OrganizasyonDbContext : 
-        AbpDbContext<OrganizasyonDbContext>,
-        IIdentityDbContext,
-        ITenantManagementDbContext
+        AbpDbContext<OrganizasyonDbContext>
     {
         /* Add DbSet properties for your Aggregate Roots / Entities here. */
         
@@ -42,7 +52,7 @@ namespace Organizasyon.EntityFrameworkCore
          */
         
         //Identity
-        public DbSet<IdentityUser> Users { get; set; }
+        public DbSet<AppUser> Users { get; set; }
         public DbSet<IdentityRole> Roles { get; set; }
         public DbSet<IdentityClaimType> ClaimTypes { get; set; }
         public DbSet<OrganizationUnit> OrganizationUnits { get; set; }
@@ -54,7 +64,24 @@ namespace Organizasyon.EntityFrameworkCore
         public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
         #endregion
-        
+
+
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyOrganizationConcept> CompanyOrganizationConcepts { get; set; }
+        public DbSet<CompanyPackage> CompanyPackages { get; set; }
+        public DbSet<Concept> Concepts { get; set; }
+        public DbSet<File> Files { get; set; }
+        public DbSet<FrequentlyAskedQuestion> FrequentlyAskedQuestions { get; set; }
+        public DbSet<Label> Labels { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<MailTemplate> MailTemplates { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<Package> Packages { get; set; }
+        public DbSet<SentMail> SentMails { get; set; }
+        public DbSet<Town> Towns { get; set; }
+
+
         public OrganizasyonDbContext(DbContextOptions<OrganizasyonDbContext> options)
             : base(options)
         {
@@ -102,7 +129,7 @@ namespace Organizasyon.EntityFrameworkCore
                 //    .WithMany(p => p.AppUsers)
                 //    .HasForeignKey(d => d.ImageId)
                 //    .HasConstraintName("FK_AbpUsers_LFGFiles");
-                //b.HasOne<IdentityUser>().WithOne().HasForeignKey<AppUser>(x => x.Id);
+                b.HasOne<IdentityUser>().WithOne().HasForeignKey<AppUser>(x => x.Id);
             });
 
         }

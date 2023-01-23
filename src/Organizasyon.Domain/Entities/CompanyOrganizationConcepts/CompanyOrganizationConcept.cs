@@ -9,7 +9,6 @@ using Volo.Abp.Domain.Entities;
 
 namespace Organizasyon.Entities.CompanyOrganizationConcepts
 {
-    //Conspt gibi düşün.
     [Table(OrganizasyonConsts.DbTablePrefix + "CompanyOrganizationConcepts")]
     public class CompanyOrganizationConcept : Entity<int>
     {

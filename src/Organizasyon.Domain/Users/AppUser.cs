@@ -20,7 +20,7 @@ namespace Organizasyon.Users
 
         public virtual string UserName { get; private set; }
 
-        public virtual string NormalizedUserName { get; private set; }
+        //public virtual string NormalizedUserName { get; private set; }
 
         public virtual string Name { get; private set; }
 
@@ -28,7 +28,7 @@ namespace Organizasyon.Users
 
         public virtual string Email { get; private set; }
 
-        public virtual string NormalizedEmail { get; private set; }
+        //public virtual string NormalizedEmail { get; private set; }
 
         public virtual bool EmailConfirmed { get; private set; }
 
@@ -52,13 +52,6 @@ namespace Organizasyon.Users
          * 4. Run the .DbMigrator project (or use the Update-Database command) to apply
          * schema change to the database.
          */
-
-        //public string SteamId { get; set; }
-
-        //public string DiscordId { get; set; }
-
-        //public DateTime? BirthDate { get; set; }
-        //public Guid? ImageId { get; set; }
 
         //public virtual File Image { get; set; }
         //public virtual ICollection<Team> Teams { get; set; }
