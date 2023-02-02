@@ -42,6 +42,5 @@ namespace Organizasyon.Entities.Companies
         public virtual ICollection<File> Files { get; set; }
         public virtual ICollection<CompanyPackage> CompanyPackages { get; set; }
 
-
     }
 }
