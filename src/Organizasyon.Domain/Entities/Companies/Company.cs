@@ -1,5 +1,7 @@
-﻿using Organizasyon.Entities.CompanyPackages;
+﻿using Organizasyon.Entities.Cities;
+using Organizasyon.Entities.CompanyPackages;
 using Organizasyon.Entities.Files;
+using Organizasyon.Entities.Towns;
 using Organizasyon.Enums;
 using Organizasyon.Users;
 using System;
@@ -34,7 +36,13 @@ namespace Organizasyon.Entities.Companies
         public string LatLong { get; set; }
         public string About { get; set; }
         public int CityId { get; set; }
+        [ForeignKey("CityId")]
+        [Required]
+        public virtual City City { get; set; }
         public int DisrictId { get; set; }
+        [ForeignKey("DisrictId")]
+        [Required]
+        public virtual Town Disrict { get; set; }
         public DateTime CompanyValidDate { get; set; }
         public DateTime CreatedDate { get; set; }
         public int? CreatedBy { get; set; }

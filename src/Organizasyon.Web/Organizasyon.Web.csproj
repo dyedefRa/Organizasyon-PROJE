@@ -54,4 +54,10 @@
     <PackageReference Include="Volo.Abp.SettingManagement.Web" Version="4.4.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Admin\Label\" />
+    <Folder Include="Pages\Admin\ContactForm\" />
+    <Folder Include="Pages\Admin\Package\" />
+  </ItemGroup>
+
 </Project>

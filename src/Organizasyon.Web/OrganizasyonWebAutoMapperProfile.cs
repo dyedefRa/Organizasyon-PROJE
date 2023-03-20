@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Volo.Abp.Identity;
 
 namespace Organizasyon.Web
 {
@@ -6,7 +7,9 @@ namespace Organizasyon.Web
     {
         public OrganizasyonWebAutoMapperProfile()
         {
-            //Define your AutoMapper configuration here for the Web project.
+            CreateMap<Pages.Admin.Identity.Roles.CreateModalModel.RoleInfoModel, IdentityRoleCreateDto>();
+            CreateMap<Pages.Admin.Identity.Roles.EditModalModel.RoleInfoModel, IdentityRoleUpdateDto>();
+            CreateMap<IdentityRoleDto, Pages.Admin.Identity.Roles.EditModalModel.RoleInfoModel>();
         }
     }
 }

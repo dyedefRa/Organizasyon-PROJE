@@ -40,3 +40,6 @@ namespace Organizasyon.Web
 //Fiyatlandırma konusunu dusun
 //https://dugun.com/kir-dugunu/antalya/golbasi-restaurant
 //
+
+
+//https://github.com/abpframework/abp/blob/dev/modules/identity/src/Volo.Abp.Identity.Web/Pages/Identity/Roles/CreateModal.cshtml

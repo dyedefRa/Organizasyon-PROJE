@@ -1,0 +1,48 @@
+﻿@page
+@using Organizasyon.Localization
+@using Microsoft.Extensions.Localization
+@model Organizasyon.Web.Pages.Admin.Company.IndexModel
+@inject IStringLocalizer<OrganizasyonResource> L
+
+@section scripts
+{
+    <abp-script src="/Pages/Admin/Company/Index.js" />
+}
+@Html.AntiForgeryToken()
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_12">
+                <abp-card-title>@L["Companies"]</abp-card-title>
+            </abp-column>
+        </abp-row>
+        <br />
+     @*   <abp-row>
+            <abp-column size="_3">
+                <abp-input asp-for="PresenterNameFilter" label="@L["PresenterFullName"]" />
+            </abp-column>
+            <abp-column size="_2">
+                <abp-input asp-for="RegistrationNumberFilter" label="@L["RegistrationNumber"]" class="removeOuterButton" onkeypress="return isNumber(event)" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="TcNumberFilter" label="@L["TcNumber"]" class="removeOuterButton" onkeypress="return isNumber(event)" />
+            </abp-column>
+            <abp-column size="_2">
+                <abp-input asp-for="ExpertOneKeyIdFilter" label="@L["ExpertOneKeyIdFilter"]"  />
+            </abp-column>
+            <abp-column size-md="_2" style="margin:auto;">
+                <abp-button id="btnSearch" class="btn-success float-right">@L["Filter"]</abp-button>
+            </abp-column>
+        </abp-row>*@
+    </abp-card-header>
+    <abp-card-body>
+        <abp-row>
+           @* <abp-column size-md="_12">
+                <div class="float-right">
+                    <abp-button id="btnExport" button-type="Primary" type="submit">@L["Export"]</abp-button>
+                </div>
+            </abp-column>*@
+        </abp-row>
+        <abp-table striped-rows="true" id="CompanyTable"></abp-table>
+    </abp-card-body>
+</abp-card>

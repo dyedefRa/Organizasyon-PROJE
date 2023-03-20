@@ -3,7 +3,7 @@
 namespace Organizasyon.Web.Pages.Admin
 {
     [Authorize]
-    public class IndexModel : OrganizasyonAdminPageModel
+    public class IndexModel : OrganizasyonPageModel
     {
         public void OnGet()
         {
